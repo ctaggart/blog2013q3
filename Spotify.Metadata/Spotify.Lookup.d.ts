@@ -1,5 +1,5 @@
 ﻿
-module Spotify.Lookup.Json {
+declare module Spotify.Lookup {
 
     export interface ExternalId {
         type: string;
@@ -15,11 +15,11 @@ module Spotify.Lookup.Json {
         available: bool;
         trackNumber: string;
         popularity: string;
-        //"external-ids": ExternalId[];
+        "external-ids": ExternalId[];
         length: number;
         href: string;
         artists: Artist[];
-        //"disc-number": string;
+        "disc-number": string;
         name: string;
     }
 
@@ -28,10 +28,10 @@ module Spotify.Lookup.Json {
     }
 
     export interface Album {
-        //"artist-id": string;
+        "artist-id": string;
         name: string;
         artist: string;
-        //"external-ids": ExternalId[];
+        "external-ids": ExternalId[];
         released: string;
         tracks: Track[];
         href: string;

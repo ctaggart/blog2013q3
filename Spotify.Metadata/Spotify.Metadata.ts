@@ -1,6 +1,6 @@
 ﻿
 /// <reference path="jquery.d.ts" />
-/// <reference path="Spotify.Lookup.ts" />
+/// <reference path="Spotify.Lookup.d.ts" />
 
 module Spotify {
 
@@ -9,16 +9,16 @@ module Spotify {
         TrackDetail
     }
 
-    export class LookupAlbumRequest {
-        constructor(private req: JQueryXHR) {}
+    export class Request<T> {
+        constructor(private req: JQueryXHR) { }
         get request() { return this.req; }
-        done(callback: (res: Lookup.AlbumResponse) => JQueryPromise) { return this.req.done(callback); }
+        done(callback: (res: T) => JQueryPromise): JQueryPromise { return this.req.done(callback); }
     }
 
     export class MetadataClient {
         constructor(private baseUrl = "http://ws.spotify.com") { }
         
-        lookupAlbum(artistUri: string, extras?: LookupAlbumExtras = null)
+        lookupAlbum(artistUri: string, extras: LookupAlbumExtras = null)
         {
             var url = this.baseUrl + "/lookup/1/.json?uri=" + artistUri; // &extras=trackdetail",
 
@@ -35,9 +35,9 @@ module Spotify {
                 type: "GET",
                 //contentType: "application/json; charset=utf-8"
                 contentType: "text/plain" // avoids a preflight OPTIONS request
-            })
+            });
 
-            return new LookupAlbumRequest(req);
+            return new Request<Lookup.Album>(req);
         }
     }
 
