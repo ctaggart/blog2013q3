@@ -12,7 +12,7 @@ module Spotify {
     export class Request<T> {
         constructor(private req: JQueryXHR) { }
         get request() { return this.req; }
-        done(callback: (res: T) => JQueryPromise): JQueryPromise { return this.req.done(callback); }
+        done(callback: (res: T) => any) { return this.req.done(callback); }
     }
 
     export class MetadataClient {
@@ -37,7 +37,7 @@ module Spotify {
                 contentType: "text/plain" // avoids a preflight OPTIONS request
             });
 
-            return new Request<Lookup.Album>(req);
+            return new Request<Lookup.AlbumResponse>(req);
         }
     }
 
